@@ -36,7 +36,7 @@
                 <configuration>
                 	<testFailureIgnore>true</testFailureIgnore>
                     <suiteXmlFiles>
-				        <suiteXmlFile>D:\Personal_Project\TestNG-AllureReport\src\main\resources\TestNG.xml</suiteXmlFile>
+				        <suiteXmlFile>${project.basedir}/src/main/resources/TestNG.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"

@@ -35,7 +35,7 @@ public class LoginPage extends TestBase{
 		return driver.getTitle();
 	}
 	
-	@Step("User Login")
+	@Step("User Login using username: {0} and password: {2}")
 	public void login(String UserName, String Password){
 		edtEmail.sendKeys(UserName);
 		edtPassword.sendKeys(Password);

@@ -46,7 +46,7 @@ public class SignUpPage extends TestBase {
 		return driver.getTitle();
 	}
 
-	@Step("Registering a new user")
+	@Step("Registering a new user using username: {0}, email: {1} and password: {2}")
 	public void registerUser(String UserName, String Email, String Password) {
 		edtUserName.sendKeys(UserName);
 		edtEmail.sendKeys(Email);

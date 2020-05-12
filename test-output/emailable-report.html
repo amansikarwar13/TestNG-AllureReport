@@ -9,16 +9,15 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Default suite</th></tr>
-<tr><td><a href="#t0">Default test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">10,752</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Default test</a></td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">36,074</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.crm.qa.testcases.RegisterUserPageTest</td><td><a href="#m0">createUser</a></td><td rowspan="1">1589306913610</td><td rowspan="1">2023</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Default suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Default test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.crm.qa.testcases.HomePageTest</td><td><a href="#m0">verifyTagsOnPage</a></td><td rowspan="1">1589314265417</td><td rowspan="1">589</td></tr><tr><th colspan="4">Default test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="4">com.crm.qa.testcases.HomePageTest</td><td><a href="#m1">verifyHomeLink</a></td><td rowspan="1">1589314246352</td><td rowspan="1">76</td></tr><tr class="passedeven"><td><a href="#m2">verifyHomePageTitleTest</a></td><td rowspan="1">1589314239740</td><td rowspan="1">160</td></tr><tr class="passedeven"><td><a href="#m3">verifyLoginLink</a></td><td rowspan="1">1589314252514</td><td rowspan="1">60</td></tr><tr class="passedeven"><td><a href="#m4">verifySignUpLink</a></td><td rowspan="1">1589314258905</td><td rowspan="1">64</td></tr></tbody>
 </table>
-<h2>Default test</h2><h3 id="m0">com.crm.qa.testcases.RegisterUserPageTest#createUser</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: email already exist expected [false] but found [true]
+<h2>Default test</h2><h3 id="m0">com.crm.qa.testcases.HomePageTest#verifyTagsOnPage</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.AssertionError: No Popular Tags present on home page expected [true] but found [false]
 	at org.testng.Assert.fail(Assert.java:97)
 	at org.testng.Assert.failNotEquals(Assert.java:968)
-	at org.testng.Assert.assertFalse(Assert.java:65)
-	at com.qa.pages.SignUpPage.registerUser(SignUpPage.java:57)
-	at com.crm.qa.testcases.RegisterUserPageTest.createUser(RegisterUserPageTest.java:42)
+	at org.testng.Assert.assertTrue(Assert.java:43)
+	at com.crm.qa.testcases.HomePageTest.verifyTagsOnPage(HomePageTest.java:82)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -48,5 +47,9 @@
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m1">com.crm.qa.testcases.HomePageTest#verifyHomeLink</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m2">com.crm.qa.testcases.HomePageTest#verifyHomePageTitleTest</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m3">com.crm.qa.testcases.HomePageTest#verifyLoginLink</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h3 id="m4">com.crm.qa.testcases.HomePageTest#verifySignUpLink</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

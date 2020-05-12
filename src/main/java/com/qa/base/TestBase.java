@@ -23,7 +23,8 @@ public class TestBase {
 	private static EventFiringWebDriver e_driver;
 	private static WebEventListener eventListener;
 	private static String url;
-
+	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
+	
 	public TestBase() {
 		try {
 			prop = new Properties();
@@ -37,7 +38,7 @@ public class TestBase {
 		}
 	}
 
-	public static void initialization() {
+	public WebDriver initialization() {
 		String browserName = prop.getProperty("browser");
 
 		if (browserName.equalsIgnoreCase("CHROME")) {
@@ -52,11 +53,21 @@ public class TestBase {
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
+		tdriver.set(driver);
+		return getDriver();
+		
+
+
+	}
+
+	public static synchronized WebDriver getDriver() {
+		return tdriver.get();
+	}
+	
+	public static void launchURL(WebDriver driver) {
 		
 		//Launching the URL:
 		url = prop.getProperty("url");
 		driver.get(url);
-
-	}
-
+		}
 }

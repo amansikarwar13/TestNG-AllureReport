@@ -1,16 +1,19 @@
 package com.crm.qa.testcases;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.qa.base.TestBase;
 import com.qa.pages.HomePage;
 import com.qa.pages.LoginPage;
+import com.qa.util.AllureListener;
 import com.qa.util.TestUtil;
 
 import io.qameta.allure.Description;
@@ -18,11 +21,13 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 
+@Listeners({AllureListener.class})
 public class HomePageTest extends TestBase {
 	LoginPage loginPage;
 	HomePage homePage;
 	TestUtil testUtil;
-
+	public WebDriver driver;
+	
 	final private static Logger LOGGER = LoggerFactory.getLogger(HomePageTest.class);
 
 	public HomePageTest() {
@@ -31,7 +36,8 @@ public class HomePageTest extends TestBase {
 
 	@BeforeMethod
 	public void setUp() {
-		initialization();
+		driver = initialization();
+		launchURL(driver);
 		testUtil = new TestUtil();
 		homePage = new HomePage();
 		loginPage = new LoginPage();
