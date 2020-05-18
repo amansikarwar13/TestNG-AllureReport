@@ -9,38 +9,37 @@ import com.qa.base.TestBase;
 
 import io.qameta.allure.Step;
 
-public class LoginPage extends TestBase{
-	
-	@FindBy(xpath="//input[@type='email']")
+public class LoginPage extends TestBase {
+
+	@FindBy(xpath = "//input[@type='email']")
 	WebElement edtEmail;
-	
-	@FindBy(xpath="//input[@type='password']")
+
+	@FindBy(xpath = "//input[@type='password']")
 	WebElement edtPassword;
-	
-	@FindBy(xpath="//button[text()='Sign in']")
+
+	@FindBy(xpath = "//button[text()='Sign in']")
 	WebElement btnSignIn;
-	
-	@FindBy(xpath="//a[text()='Your Feed']")
+
+	@FindBy(xpath = "//a[text()='Your Feed']")
 	WebElement lnkYourFeed;
-	
-		
-	//Initializing the Page Objects:
-	public LoginPage(){
+
+	// Initializing the Page Objects:
+	public LoginPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
-	//Actions:
+
+	// Actions:
 	@Step("Getting Tilte from Login Page")
-	public String validateLoginPageTitle(){
+	public String validateLoginPageTitle() {
 		return driver.getTitle();
 	}
-	
-	@Step("User Login using username: {0} and password: {2}")
-	public void login(String UserName, String Password){
+
+	@Step("User Login")
+	public void login(String UserName, String Password) {
 		edtEmail.sendKeys(UserName);
 		edtPassword.sendKeys(Password);
 		btnSignIn.click();
 		Assert.assertTrue(lnkYourFeed.isDisplayed(), "Your Feed is not present on page after login");
 	}
-	
+
 }

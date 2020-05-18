@@ -24,7 +24,7 @@ public class TestBase {
 	private static WebEventListener eventListener;
 	private static String url;
 	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
-	
+
 	public TestBase() {
 		try {
 			prop = new Properties();
@@ -42,10 +42,12 @@ public class TestBase {
 		String browserName = prop.getProperty("browser");
 
 		if (browserName.equalsIgnoreCase("CHROME")) {
-			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/driver/chrome-windows.exe");
+			System.setProperty("webdriver.chrome.driver",
+					System.getProperty("user.dir") + "/driver/chrome-windows.exe");
 			driver = new ChromeDriver();
 		} else if (browserName.equalsIgnoreCase("FIREFOX")) {
-			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "/driver/firefox-windows.exe");
+			System.setProperty("webdriver.gecko.driver",
+					System.getProperty("user.dir") + "/driver/firefox-windows.exe");
 			driver = new FirefoxDriver();
 		}
 
@@ -55,19 +57,17 @@ public class TestBase {
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		tdriver.set(driver);
 		return getDriver();
-		
-
 
 	}
 
 	public static synchronized WebDriver getDriver() {
 		return tdriver.get();
 	}
-	
+
 	public static void launchURL(WebDriver driver) {
-		
-		//Launching the URL:
+
+		// Launching the URL:
 		url = prop.getProperty("url");
 		driver.get(url);
-		}
+	}
 }

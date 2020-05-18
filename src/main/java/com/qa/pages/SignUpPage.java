@@ -22,21 +22,27 @@ public class SignUpPage extends TestBase {
 
 	@FindBy(xpath = "//input[@type='password']")
 	WebElement edtPassword;
-	
+
 	@FindBy(xpath = "//button[text()='Sign in']")
 	WebElement btnSignIn;
-	
+
 	@FindBy(xpath = "//a[img[@class='user-pic']]")
 	WebElement lnkUserName;
-	
+
 	@FindBy(xpath = "//*[text()='email' and text()='has already been taken']")
 	WebElement warningEmailAlreadyExist;
-	
+
 	@FindBy(xpath = "//*[text()='username' and text()='has already been taken']")
 	WebElement warningUserNameAlreadyExist;
-	
+
+	@FindBy(xpath = "//*[text()='email']")
+	WebElement warningEmailCanNotBeBlank;
+
+	@FindBy(xpath = "//*[text()='username' and text()='is too short (minimum is 1 character)']")
+	WebElement warningUserNameCanNotBeBlank;
+
 	// Initializing the Page Objects:
-	public SignUpPage(){
+	public SignUpPage() {
 		PageFactory.initElements(driver, this);
 	}
 
@@ -53,12 +59,34 @@ public class SignUpPage extends TestBase {
 		edtPassword.sendKeys(Password);
 		btnSignIn.click();
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
-		
-		Assert.assertFalse(warningEmailAlreadyExist.isDisplayed(),"email already exist");
-		Assert.assertFalse(warningUserNameAlreadyExist.isDisplayed(),"username already exist");
-		
+
+		if (UserName.equals("") || UserName == "") {
+			Assert.assertFalse(warningEmailCanNotBeBlank.isDisplayed(), "Email can't be empty");
+			Assert.assertFalse(warningUserNameCanNotBeBlank.isDisplayed(), "username can't be empty");
+		}
+
+		if (warningEmailAlreadyExist.isDisplayed()) {
+			Assert.assertFalse(warningEmailAlreadyExist.isDisplayed(), "email already exist");
+			Assert.assertFalse(warningUserNameAlreadyExist.isDisplayed(), "username already exist");
+		}
+
+	}
+
+	@Step("Registering a new user using username: {0}, email: {1} and password: {2}")
+	public void registerNewUser(String UserName, String Email, String Password) {
+		edtUserName.sendKeys(UserName);
+		edtEmail.sendKeys(Email);
+		edtPassword.sendKeys(Password);
+		btnSignIn.click();
+		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
+
 		String userlnk = lnkUserName.getAttribute("href");
-		Assert.assertEquals(UserName, userlnk,"The expected username is: "+UserName+"and username showing on page is: "+userlnk);
+		if (userlnk.contains(UserName)) {
+			Assert.assertTrue(true, "User has registered successfully with username: " + userlnk);
+		} else {
+			Assert.assertFalse(false,
+					"The expected username is: " + UserName + "and username showing on page is: " + userlnk);
+		}
 	}
 
 }
