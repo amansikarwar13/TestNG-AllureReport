@@ -4,10 +4,10 @@
 	<test thread-count="5" name="Test">
 		<classes>
  			<class name="com.qa.testcases.GenerateAllureReport" />
- 	 		<class name="com.qa.testcases.HomePageTest" />
+ 	  		<class name="com.qa.testcases.HomePageTest" />
 			<class name="com.qa.testcases.RegisterUserPageTest" />
 			<class name="com.qa.testcases.LoginPageTest" />
-			<class name="com.qa.testcases.WelcomePageTest" />
+			<class name="com.qa.testcases.ValidateBlogPageTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

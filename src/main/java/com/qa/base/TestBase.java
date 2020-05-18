@@ -6,22 +6,16 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import com.qa.util.TestUtil;
-import com.qa.util.WebEventListener;
 
 public class TestBase {
 
 	public static WebDriver driver;
 	protected static Properties prop;
-	private static EventFiringWebDriver e_driver;
-	private static WebEventListener eventListener;
 	private static String url;
 	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
 

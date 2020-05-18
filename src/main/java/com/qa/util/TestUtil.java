@@ -20,6 +20,7 @@ public class TestUtil extends TestBase {
 
 	public static long PAGE_LOAD_TIMEOUT = 20;
 	public static long IMPLICIT_WAIT = 20;
+	public static long IMPLICIT_WAIT_SECONDS = 5;
 
 	public static String TESTDATA_SHEET_PATH = System.getProperty("user.dir")
 			+ "/driver/chrome-windows.exe/com/qa/testdata/TestData.xlsx";

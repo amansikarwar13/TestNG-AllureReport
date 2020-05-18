@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 import com.qa.base.TestBase;
 
@@ -35,6 +36,9 @@ public class HomePage extends TestBase {
 	@FindBy(xpath = "//a[text()='Global Feed']")
 	WebElement lnkGlobalFeed;
 
+	@FindBy(xpath = "//h1[ancestor::div[@class='article-preview']]")
+	List<WebElement> lstArticleTitle;
+	
 	// Initializing the Page Objects:
 	public HomePage() {
 		PageFactory.initElements(driver, this);
@@ -89,11 +93,50 @@ public class HomePage extends TestBase {
 	public void clickLinkGlobalFeed() {
 		lnkGlobalFeed.click();
 	}
+	
+	@Step("Validating Article Title Present on Page")
+	public void validatingArticleTitlePresentOnPage(String titleToValidate, boolean editTitle) {
+		if (lstArticleTitle.size() > 0) {
+			boolean iflag = true;
+			for(WebElement eachEle : lstArticleTitle) {
+				System.out.println("Title Name"+eachEle.getText());
+				if(eachEle.getText().contains(titleToValidate)) {
+					Assert.assertTrue(iflag, titleToValidate+ " Article Title present on page");
+					iflag = false;
+					
+					if(editTitle == true)
+						eachEle.click();
+					break;
+				}
+			}
+			
+			if(iflag == true) {
+				Assert.assertFalse(iflag, titleToValidate +" Article Title is not present on page");
+			}
+		}
+		else {
+			Assert.assertFalse(true, "No Article Title present on page");
+		}
+	}
+	
+	@Step("Validating After Deleting Article Not Present on Page")
+	public void validatingArticleNotPresentOnPage(String titleToValidate) {
+		if (lstArticleTitle.size() > 0) {
+			boolean iflag = true;
+			for(WebElement eachEle : lstArticleTitle) {
+				System.out.println("Title Name"+eachEle.getText());
+				if(eachEle.getText().contains(titleToValidate)) {
+					Assert.assertFalse(iflag, titleToValidate+ " Article present on page after deleting it");
+					break;
+				}
+			}
+			
+			if(iflag == true) {
+				Assert.assertTrue(iflag, titleToValidate +" Article is not present on page");
+			}
+		}
+		else {
+			Assert.assertFalse(true, "No Article Title present on page");
+		}
+	}
 }
-
-//	public void clickOnNewContactLink(){
-//		Actions action = new Actions(driver);
-//		action.moveToElement(contactsLink).build().perform();
-//		newContactLink.click();
-//		
-//	}

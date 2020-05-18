@@ -20,7 +20,9 @@ import io.qameta.allure.Story;
 public class LoginPageTest extends TestBase {
 	LoginPage loginPage;
 	HomePage homePage;
-
+	private String userName = prop.getProperty("username");
+	private String userPassword = prop.getProperty("password");
+	
 	public LoginPageTest() {
 		super();
 	}
@@ -49,7 +51,7 @@ public class LoginPageTest extends TestBase {
 	public void loginTest() {
 		homePage.verifyLinkSignIn();
 		homePage.clickLinkSignIn();
-		loginPage.login("testdata1@gmail.com", "Password@123");
+		loginPage.login(userName, userPassword);
 	}
 
 	@AfterMethod

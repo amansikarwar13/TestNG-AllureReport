@@ -18,7 +18,6 @@ import com.qa.util.TestUtil;
 
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
-import io.qameta.allure.Features;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -47,7 +46,6 @@ public class HomePageTest extends TestBase {
 	}
 
 	@Test(priority = 1, description = "Check Login Title Page")
-//	@Features("")
 	@Severity(SeverityLevel.NORMAL)
 	@Description("Test Case Description: Verify Login Page Title")
 	@Story("Story Name: To Check Login Page Title")

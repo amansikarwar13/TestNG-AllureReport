@@ -1,9 +1,5 @@
 package com.qa.testcases;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -26,20 +22,24 @@ public class ValidateBlogPageTest extends TestBase {
 
 	LoginPage loginPage;
 	HomePage homePage;
-	ValidateBlogPage welcomePage;
+	ValidateBlogPage bloggerPage;
 	CommonMethod cm;
-
+	private String userName = prop.getProperty("username");
+	private String userPassword = prop.getProperty("password");
+	
 	public ValidateBlogPageTest() {
 		super();
 	}
 
 	@BeforeMethod
 	public void setUp() {
+
 		driver = initialization();
+
 		launchURL(driver);
 		loginPage = new LoginPage();
 		homePage = new HomePage();
-		welcomePage = new ValidateBlogPage();
+		bloggerPage = new ValidateBlogPage();
 		cm = new CommonMethod();
 	}
 
@@ -50,22 +50,20 @@ public class ValidateBlogPageTest extends TestBase {
 	public void ValidateArticleOnGlobalFeed() throws InterruptedException {
 		homePage.verifyLinkSignIn();
 		homePage.clickLinkSignIn();
-		loginPage.login("testdata1@gmail.com", "Password@123");
+		loginPage.login(userName, userPassword);
 
-		// Creating Title Name:
-		SimpleDateFormat zuluTimeFormat = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss", Locale.US);
-		Date now = new Date();
-		String random = zuluTimeFormat.format(now);
-		String titleID = "test" + random.replaceAll("-", "");
-		String title = "Title" + titleID;
-		String abtArticle = "About" + titleID;
-		String article = titleID;
+		String randomUsingTimeStamp = cm.generateRandomString();
+		String article = "test" + randomUsingTimeStamp;
+		String title = "Title " + article;
+		String abtArticle = "About " + article;
 
-		welcomePage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
+		bloggerPage.clickLinkNewPost();
+		bloggerPage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
 		homePage.clickLinkHome();
 		homePage.clickLinkGlobalFeed();
 
-		cm.pageContainsText(title, "15", true);
+		homePage.validatingArticleTitlePresentOnPage(title, false);
+//		cm.pageContainsText(title, "15", true);
 
 	}
 
@@ -76,23 +74,86 @@ public class ValidateBlogPageTest extends TestBase {
 	public void ValidateArticleOnGlobalFeed2() throws InterruptedException {
 		homePage.verifyLinkSignIn();
 		homePage.clickLinkSignIn();
-		loginPage.login("testdata1@gmail.com", "Password@123");
+		loginPage.login(userName, userPassword);
 
 		// Creating Title Name:
-		SimpleDateFormat zuluTimeFormat = new SimpleDateFormat("yyyy-MM-ddHH-mm-ss", Locale.US);
-		Date now = new Date();
-		String random = zuluTimeFormat.format(now);
-		String titleID = "test" + random.replaceAll("-", "");
-		String title = "Title" + titleID;
-		String abtArticle = "About" + titleID;
-		String article = titleID;
+		String randomUsingTimeStamp = cm.generateRandomString();
+		String article = "test" + randomUsingTimeStamp;
+		String title = "Title " + article;
+		String abtArticle = "About " + article;
 
-		welcomePage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
+		bloggerPage.clickLinkNewPost();
+		bloggerPage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
+		homePage.clickLinkHome();
+		homePage.clickLinkGlobalFeed();
+		homePage.validatingArticleTitlePresentOnPage("HelloNoArticlePresent", false);
+//		cm.pageContainsText("HelloNoArticlePresent", "15", true);
+
+	}
+
+	@Severity(SeverityLevel.CRITICAL)
+	@Description("Test Case Description: Updating Blog For Existing User")
+	@Story("Story Name: Verify Updated Post")
+	@Test(priority = 3, description = "Updating A Newly Created Blog And Validating It on Global Feed Page")
+	public void ValidateArticleOnGlobalFeedAfterEditingArticle() throws InterruptedException {
+		homePage.verifyLinkSignIn();
+		homePage.clickLinkSignIn();
+		loginPage.login(userName, userPassword);
+		
+		String randomUsingTimeStamp = cm.generateRandomString();
+		String article = "test" + randomUsingTimeStamp;
+		String title = "Title " + article;
+		String abtArticle = "About " + article;
+		
+		bloggerPage.clickLinkNewPost();
+		bloggerPage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
 		homePage.clickLinkHome();
 		homePage.clickLinkGlobalFeed();
 
-		cm.pageContainsText("HelloNoArticlePresent", "15", true);
+		homePage.validatingArticleTitlePresentOnPage(title, true);
+		bloggerPage.clickEditArticle();
 
+		String newTitle = "UpdateTitle: " + randomUsingTimeStamp;
+		bloggerPage.updateBlog(newTitle, "", "", "");
+
+		homePage.clickLinkHome();
+		homePage.clickLinkGlobalFeed();
+
+		homePage.validatingArticleTitlePresentOnPage(newTitle, true);
+	}
+	
+	@Severity(SeverityLevel.CRITICAL)
+	@Description("Test Case Description: Deleting Blog after Creating It")
+	@Story("Story Name: Verify Deleted Post")
+	@Test(priority = 4, description = "Deleting Blog after Creating It And Validating On Global Feed Page")
+	public void validateDeletedArticleNotPresentOnGlobalFeed() throws InterruptedException {
+		
+		//Login Using Existing User
+		homePage.verifyLinkSignIn();
+		homePage.clickLinkSignIn();
+		loginPage.login(userName, userPassword);
+
+		String randomUsingTimeStamp = cm.generateRandomString();
+		String article = "test" + randomUsingTimeStamp;
+		String title = "Title " + article;
+		String abtArticle = "About " + article;
+		
+		//Creating a New Blog
+		bloggerPage.clickLinkNewPost();
+		bloggerPage.creatNewBlog(title, abtArticle, article, "NEW_TAG");
+		homePage.clickLinkHome();
+		homePage.clickLinkGlobalFeed();
+		
+		//Validating the Blog on Global Feed
+		homePage.validatingArticleTitlePresentOnPage(title, true);
+		
+		//Deleting the Blog
+		bloggerPage.clickDeleteArticle();
+		homePage.clickLinkHome();
+		homePage.clickLinkGlobalFeed();
+		
+		//Post Deleting Blog Validating on Global Feed
+		homePage.validatingArticleNotPresentOnPage(title);
 	}
 
 	@AfterMethod
